@@ -27,9 +27,10 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
 #      - name: Semantic Version
-#        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
 #        env:
 #          GITHUB_TOKEN: ${{ github.token }}
+#        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
+
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
