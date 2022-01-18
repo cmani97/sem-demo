@@ -32,13 +32,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-#      - name: 'Automated Version Bump'
-#        uses: 'phips28/gh-action-bump-version@master'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag-postfix: 'beta'
-
       - name: Publish to GitHub Packages  Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
