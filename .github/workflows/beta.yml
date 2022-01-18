@@ -31,8 +31,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-        with:
-          tag-postfix: 'beta'
+#        with:
+#          tag-postfix: 'beta'
 
       - name: Publish to GitHub Packages  Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
