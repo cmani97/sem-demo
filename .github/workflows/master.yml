@@ -18,6 +18,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Setup git user
+        run: |
+          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
@@ -26,10 +31,10 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-#      - name: Semantic Version
-#        env:
-#          GITHUB_TOKEN: ${{ github.token }}
-#        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
+      - name: Semantic Version
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
