@@ -32,7 +32,7 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Semantic Version
-        with:
+        env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
 
