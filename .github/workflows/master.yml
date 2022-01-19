@@ -56,6 +56,9 @@ jobs:
           name: sem-demo-${{env.VERSION}}-beta.jar
           path: target/*-beta.jar
 
+      - name: Build with Maven
+        run: mvn -B package
+
       - name: Publish to GitHub Packages  Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
