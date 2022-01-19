@@ -15,6 +15,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      VERSION: ${project.version}
 
     steps:
       - uses: actions/checkout@v2
@@ -30,19 +32,29 @@ jobs:
           distribution: 'adopt'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-      - name: Standard Version
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
+          VERSION: ${project.version}
+
+      - name: Get version
+        run: |
+          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          echo "::set-output name=version::$VERSION"
+        id: get_version
+
+#      - name: Standard Version
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
+#        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
 
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml
+
+
       - name: 'Publish JAR'
         uses: actions/upload-artifact@v2-preview
         with:
-          name: ‘cicd-demo-${{env.VERSION}}-all.jar'
-          path: build/libs/*-all.jar
+          name: sem-demo-${{env.VERSION}}-beta.jar
+          path: target/*-beta.jar
 
       - name: Publish to GitHub Packages  Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
