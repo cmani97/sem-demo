@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.0.10](https://github.com/cmani97/sem-demo/compare/v1.0.10-beta.0...v1.0.10) (2022-01-19)
 
+### [1.0.10](https://github.com/cmani97/sem-demo/compare/v1.0.10-beta.0...v1.0.10) (2022-01-19)
+
 ### [1.0.10-beta.0](https://github.com/cmani97/sem-demo/compare/v1.0.8...v1.0.10-beta.0) (2022-01-19)
 
 ### [1.0.8](https://github.com/cmani97/sem-demo/compare/v1.0.7...v1.0.8) (2022-01-18)
