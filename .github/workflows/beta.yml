@@ -25,6 +25,8 @@ jobs:
           distribution: 'adopt'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
 #      - name: Semantic Version
 #        run: npx dwmkerr/standard-version --prerelease beta --packageFiles pom.xml --bumpFiles pom.xml
