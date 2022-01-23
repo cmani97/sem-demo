@@ -12,9 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
 
       - name: Commit files
         run: |
-          mvn versions:set -DnewVersion=1.4.3-beta
+          mvn versions:set -DnewVersion=1.5.3-beta
           git config remote.origin.url https://github.com/cmani97/demolibrary.git
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
