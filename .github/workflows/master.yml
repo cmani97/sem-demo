@@ -46,18 +46,10 @@ jobs:
 #          GITHUB_TOKEN: ${{ github.token }}
 #        run: npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
 
-#      - name: Build with Maven
-#        run: mvn -B package --file pom.xml
 
-
-      - name: 'Publish JAR'
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: sem-demo-${{env.VERSION}}-beta.jar
-          path: target/*-beta.jar
 
       - name: Build with Maven
-        run: mvn -B package
+        run: mvn -B package --file pom.xml
 
       - name: Publish to GitHub Packages  Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml

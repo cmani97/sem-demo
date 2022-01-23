@@ -31,6 +31,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+##        https://github.com/marketplace/actions/automated-github-action-maven-version-bump
+#      - name: Automated Github Action Maven Version Bump
+#        uses: mickem/gh-action-bump-maven-version@v1.0.0
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
