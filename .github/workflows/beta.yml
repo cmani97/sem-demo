@@ -5,22 +5,22 @@ name: Maven Package
 
 on:
   push:
-    branches: ['beta']
+    branches: ['none']
   release:
     types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
+#    permissions:
+#      contents: write
+#      packages: write
 
     steps:
       - uses: actions/checkout@v2
-#        with:
-#          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-#          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
       - name: Set up JDK 11
         uses: actions/setup-java@v2
@@ -30,18 +30,19 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-#      - name: Semantic Version
-#        run: npx dwmkerr/standard-version --prerelease beta --packageFiles pom.xml --bumpFiles pom.xml
-#        env:
-#          GITHUB_TOKEN: ${{ github.token }}
+      - name: Version increment for master
+        if: github.ref == 'refs/heads/master'
+        run: |
+          mvn versions:set -DnewVersion=1.5.4
 
-##        https://github.com/marketplace/actions/automated-github-action-maven-version-bump
-#      - name: Automated Github Action Maven Version Bump
-#        uses: mickem/gh-action-bump-maven-version@v1.0.0
+
+      - name: Version increment for beta
+        if: github.ref == 'refs/heads/beta'
+        run: |
+          mvn versions:set -DnewVersion=1.5.4-beta
 
       - name: Commit files
         run: |
-          mvn versions:set -DnewVersion=1.5.3-beta
           git config remote.origin.url https://github.com/cmani97/demolibrary.git
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
