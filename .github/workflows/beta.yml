@@ -26,10 +26,10 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Semantic Version
-        run: npx dwmkerr/standard-version --prerelease beta --packageFiles pom.xml --bumpFiles pom.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+#      - name: Semantic Version
+#        run: npx dwmkerr/standard-version --prerelease beta --packageFiles pom.xml --bumpFiles pom.xml
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
 
 ##        https://github.com/marketplace/actions/automated-github-action-maven-version-bump
 #      - name: Automated Github Action Maven Version Bump
