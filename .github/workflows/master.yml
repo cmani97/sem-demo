@@ -31,12 +31,20 @@ jobs:
       - name: Version increment for master
         if: github.ref == 'refs/heads/master'
         run: |
-          mvn versions:set -DnewVersion=4.0.0
+          mvn versions:set -DnewVersion=4.1.0
 
       - name: Version increment for beta
         if: github.ref == 'refs/heads/beta'
         run: |
-          mvn versions:set -DnewVersion=4.0.0-beta
+          mvn versions:set -DnewVersion=4.1.0-beta
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Publish to GitHub Packages  Apache Maven
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit files
         run: |
@@ -50,15 +58,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
-      - name: Publish to GitHub Packages  Apache Maven
-        run: mvn --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
 #        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
 #        env:
