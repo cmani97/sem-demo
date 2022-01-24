@@ -31,12 +31,12 @@ jobs:
       - name: Version increment for master
         if: github.ref == 'refs/heads/master'
         run: |
-          mvn versions:set -DnewVersion=3.0.0
+          mvn versions:set -DnewVersion=4.0.0
 
       - name: Version increment for beta
         if: github.ref == 'refs/heads/beta'
         run: |
-          mvn versions:set -DnewVersion=2.0.0-beta
+          mvn versions:set -DnewVersion=4.0.0-beta
 
       - name: Commit files
         run: |
