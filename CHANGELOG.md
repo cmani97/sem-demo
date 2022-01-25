@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/cmani97/sem-demo/compare/v4.1.1...v4.2.0) (2022-01-25)
+
+
+### Features
+
+* **feat:** implemented new feature ([6e48efb](https://github.com/cmani97/sem-demo/commit/6e48efb23b5c6e4ce4a27d39cbe4a16488444c3a))
+
+
+### Bug Fixes
+
+* **workflow:** modified master.yml5 ([0eff6f3](https://github.com/cmani97/sem-demo/commit/0eff6f33bb48b3d6ebc1a9856b07e0faca04a527))
+
 ### 4.1.2 (2022-01-25)
 
 
