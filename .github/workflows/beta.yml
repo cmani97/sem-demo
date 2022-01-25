@@ -43,7 +43,7 @@ jobs:
 
       - name: Commit files
         run: |
-          git config remote.origin.url https://github.com/cmani97/demolibrary.git
+          git config remote.origin.url https://github.com/cmani97/sem-dem0.git
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add -A
