@@ -6,8 +6,6 @@ name: Maven Package
 on:
   push:
     branches: ['master', 'beta']
-  release:
-    types: [created]
 
 jobs:
   build:
@@ -28,15 +26,13 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
 #          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Version increment for master
-        if: github.ref == 'refs/heads/master'
-        run: |
-          mvn versions:set -DnewVersion=4.1.0
 
-      - name: Version increment for beta
-        if: github.ref == 'refs/heads/beta'
-        run: |
-          mvn versions:set -DnewVersion=4.1.0-beta
+      - name: Determine version and create changelog
+        id: bumper
+        uses: tomerfi/version-bumper-action@1.1.2
+        with:
+          changelog: true
+          label: -beta
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
@@ -48,7 +44,6 @@ jobs:
 
       - name: Commit files
         run: |
-          git config remote.origin.url https://github.com/cmani97/sem-demo.git
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add -A
@@ -58,10 +53,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
-#        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-#        env:
-#          GITHUB_TOKEN: ${{ github.token }}
 
 
 
@@ -82,3 +73,16 @@ jobs:
 
 #      - name: Semantic Version
 #        run: mvn semver:finalize-current
+
+
+#      - name: Version increment for master
+#        if: github.ref == 'refs/heads/master'
+#        run: |
+#          mvn semver:increment-major
+#          mvn semver:finalize-current
+#
+#      - name: Version increment for beta
+#        if: github.ref == 'refs/heads/beta'
+#        run: |
+#          mvn semver:increment-minor
+#          mvn semver:update-pre-release -Dset=beta
