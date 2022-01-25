@@ -27,7 +27,7 @@ jobs:
 #          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Semantic Version
-      - run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
+        run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
 
 #      - name: Determine version and create changelog
 #        id: bumper
