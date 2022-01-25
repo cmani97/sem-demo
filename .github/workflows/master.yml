@@ -31,10 +31,17 @@ jobs:
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
 
-      - name: Semantic Version
-        run: |
-          npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
-          git push
+#      - name: Semantic Version
+#        run: |
+#          npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
+#          git push
+
+      - name: Determine version and create changelog
+        id: bumper
+        uses: tomerfi/version-bumper-action@1.1.2
+        with:
+          changelog: true
+          label: -beta
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
