@@ -32,7 +32,16 @@ jobs:
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
 
       - name: Semantic Version
-        run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
+        run: |
+          npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
+          git add .
+          git commit -am "fix(version): updated version"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
@@ -45,7 +54,7 @@ jobs:
       - name: Commit files
         run: |
           git add -A
-          git commit -am "version update"
+          git commit -am "updating project"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
