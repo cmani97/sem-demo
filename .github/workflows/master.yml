@@ -27,14 +27,7 @@ jobs:
 #          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Semantic Version
-      - run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
-
-#      - name: Determine version and create changelog
-#        id: bumper
-#        uses: tomerfi/version-bumper-action@1.1.2
-#        with:
-#          changelog: true
-#          label: -beta
+        run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
@@ -56,7 +49,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-
+#      - name: Determine version and create changelog
+#        id: bumper
+#        uses: tomerfi/version-bumper-action@1.1.2
+#        with:
+#          changelog: true
+#          label: -beta
 
 
 #      - name: Standard Version
