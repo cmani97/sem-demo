@@ -26,6 +26,11 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
 #          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
+      - name: git config
+        run: |
+          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+
       - name: Semantic Version
         run: npx dwmkerr/standard-version --first-release --packageFiles pom.xml --bumpFiles pom.xml
 
@@ -39,8 +44,6 @@ jobs:
 
       - name: Commit files
         run: |
-          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
-          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add -A
           git commit -am "version update"
       - name: Push changes
