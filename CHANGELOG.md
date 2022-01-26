@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.4](https://github.com/cmani97/sem-demo/compare/v4.2.3...v4.2.4) (2022-01-26)
+
+
+### Bug Fixes
+
+* **pom:** modified pom ([1ad10f5](https://github.com/cmani97/sem-demo/commit/1ad10f5d83bd269140a75720bc9268ac6ce42b6e))
+
 ### [4.2.3](https://github.com/cmani97/sem-demo/compare/v4.2.2...v4.2.3) (2022-01-25)
 
 ### [4.2.2](https://github.com/cmani97/sem-demo/compare/v4.2.1...v4.2.2) (2022-01-25)
