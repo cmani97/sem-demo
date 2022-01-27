@@ -34,16 +34,17 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           mvn semver:finalize-current
-          git commit -am "finalize-current"
-          git push
+#          git commit -am "finalize-current"
+#          git push
 
       - name: Version increment for beta
         if: github.ref == 'refs/heads/beta'
         run: |
           npx dwmkerr/standard-version --skip.changelog=true --skip.tag=true --packageFiles pom.xml --bumpFiles pom.xml
-          mvn semver:update-pre-release -Dset=beta
-          git commit -am "pre-release"
           git push
+          mvn semver:update-pre-release -Dset=beta
+#          git commit -am "pre-release"
+
 
       - uses: BobAnkh/auto-generate-changelog@master
         with:
