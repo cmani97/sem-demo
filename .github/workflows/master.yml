@@ -24,24 +24,34 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-#          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: git config
         run: |
           git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
 
-#      - name: Semantic Version
-#        run: |
-#          npx dwmkerr/standard-version --packageFiles pom.xml --bumpFiles pom.xml
-#          git push
+      - name: Version increment for master
+        if: github.ref == 'refs/heads/master'
+        run: |
+          mvn semver:finalize-current
+          git commit -am "finalize-current"
+          git push
 
-      - name: Determine version and create changelog
-        id: bumper
-        uses: tomerfi/version-bumper-action@1.1.2
+      - name: Version increment for beta
+        if: github.ref == 'refs/heads/beta'
+        run: |
+          npx dwmkerr/standard-version --skip.changelog=true --skip.tag=true --packageFiles pom.xml --bumpFiles pom.xml
+          mvn semver:update-pre-release -Dset=beta
+          git commit -am "pre-release"
+          git push
+
+      - uses: BobAnkh/auto-generate-changelog@master
         with:
-          changelog: true
-          label: -beta
+          REPO_NAME: 'cmani97/sem-demo'
+          ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PATH: 'CHANGELOG.md'
+          COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes'
+          TYPE: 'feat:Feature,fix:Bug Fixes,docs:Documentation,refactor:Refactor,perf:Performance Improvements'
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
